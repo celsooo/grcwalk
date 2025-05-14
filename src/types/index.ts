@@ -3,6 +3,7 @@
 export type RiskLevel = 'Low' | 'Medium' | 'High' | 'Critical';
 export type ControlStatus = 'Implemented' | 'Partial' | 'Planned' | 'Not Implemented';
 export type ControlType = 'Preventive' | 'Detective' | 'Corrective' | 'Directive';
+export type ComplianceStatus = 'Compliant' | 'Partially Compliant' | 'Non-Compliant' | 'Not Applicable';
 
 // Risk definition
 export interface Risk {
@@ -49,4 +50,26 @@ export interface BowTieRelationship {
   riskId: string;
   factorIds: string[];
   consequenceIds: string[];
+}
+
+// Compliance Requirement
+export interface ComplianceRequirement {
+  id: string;
+  name: string;
+  description: string;
+  framework: string;
+  status: ComplianceStatus;
+  dueDate: string;
+  assignee: string;
+  evidence: string;
+  controlIds: string[];
+}
+
+// Compliance Framework
+export interface ComplianceFramework {
+  id: string;
+  name: string;
+  description: string;
+  version: string;
+  requirements: ComplianceRequirement[];
 }

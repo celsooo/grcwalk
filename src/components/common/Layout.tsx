@@ -6,6 +6,7 @@ import RiskCatalogPage from '../../pages/RiskCatalogPage';
 import HeatmapPage from '../../pages/HeatmapPage';
 import ControlsPage from '../../pages/ControlsPage';
 import BowTieAnalysisPage from '../../pages/BowTieAnalysisPage';
+import CompliancePage from '../../pages/CompliancePage';
 
 interface LayoutProps {
   children?: ReactNode;
@@ -26,6 +27,8 @@ const Layout: React.FC<LayoutProps> = () => {
         return <ControlsPage />;
       case 'bowtie':
         return <BowTieAnalysisPage />;
+      case 'compliance':
+        return <CompliancePage />;
       default:
         return <Dashboard />;
     }
