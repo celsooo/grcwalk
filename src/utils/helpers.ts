@@ -75,3 +75,52 @@ export const generateId = (): string => {
   return Math.random().toString(36).substring(2, 15) + 
          Math.random().toString(36).substring(2, 15);
 };
+
+// Export risks to JSON file
+export const exportRisks = (risks: Risk[]) => {
+  const dataStr = JSON.stringify(risks, null, 2);
+  const dataBlob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(dataBlob);
+  
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `grcwalk-risks-${new Date().toISOString().split('T')[0]}.json`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
+// Import risks from JSON file
+export const importRisks = (file: File): Promise<Risk[]> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    
+    reader.onload = (e) => {
+      try {
+        const content = e.target?.result as string;
+        const risks = JSON.parse(content);
+        
+        // Validate imported data
+        if (!Array.isArray(risks)) {
+          throw new Error('Invalid format: Expected an array of risks');
+        }
+        
+        // Validate each risk object
+        risks.forEach((risk: any) => {
+          if (!risk.name || !risk.description || !risk.category || 
+              typeof risk.likelihood !== 'number' || typeof risk.impact !== 'number') {
+            throw new Error('Invalid risk data: Missing required fields');
+          }
+        });
+        
+        resolve(risks);
+      } catch (error) {
+        reject(error);
+      }
+    };
+    
+    reader.onerror = () => reject(new Error('Error reading file'));
+    reader.readAsText(file);
+  });
+};
