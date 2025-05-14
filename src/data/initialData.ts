@@ -109,7 +109,80 @@ export const initialRisks: Risk[] = [
     likelihood: 3,
     impact: 4,
     controlIds: []
+  },
+  {
+    id: '13',
+    name: 'Inconformidade com Arranjo de Pagamentos',
+    description: 'Multas e sanções decorrentes do não cumprimento de regras do arranjo de pagamentos',
+    category: 'Compliance',
+    likelihood: 3,
+    impact: 4,
+    controlIds: []
+  },
+  {
+    id: '14',
+    name: 'Erros de cálculo de MDR',
+    description: 'Cobrança de taxas transacionais em desacordo com os contratos estabelecidos',
+    category: 'Operational',
+    likelihood: 3,
+    impact: 4,
+    controlIds: []
+  },
+  {
+    id: '15',
+    name: 'Privacidade de dados',
+    description: 'Não conformidade com leis de privacidade de dados (ex.: LGPD, GDPR)',
+    category: 'Operational',
+    likelihood: 3,
+    impact: 3,
+    controlIds: []
+  },
+  {
+    id: '16',
+    name: 'Falhas em integrações',
+    description: 'Falhas em integração com bandeiras, IMF’s e demais parceiros',
+    category: 'Operational',
+    likelihood: 3,
+    impact: 4,
+    controlIds: []
+  },
+  {
+    id: '17',
+    name: 'Falhas na execução de mudanças',
+    description: 'Falhas na execução de mudanças de tecnologia de produtos críticos',
+    category: 'Operational',
+    likelihood: 3,
+    impact: 4,
+    controlIds: []
+  },
+  {
+    id: '18',
+    name: 'Perda de certificação PCI',
+    description: 'Falha em controles de segurança da informação impactando na perda da certificação PCI DSS',
+    category: 'Information Security',
+    likelihood: 1,
+    impact: 5,
+    controlIds: []
+  },
+  {
+    id: '19',
+    name: 'Corrupção e perda de dados críticos',
+    description: 'Perda de dados críticos por incidentes aliados à ausência de replicação/backup ou demais controles relevantes',
+    category: 'Information Security',
+    likelihood: 1,
+    impact: 5,
+    controlIds: []
+  },
+  {
+    id: '20',
+    name: 'Erros ou atrasos em obrigações recorrentes',
+    description: 'Erros ou atrasos em obrigações recorrentes e reportes periódicos a autoridades (ex.: SCR, CCS)',
+    category: 'Compliance',
+    likelihood: 3,
+    impact: 3,
+    controlIds: []
   }
+  
 ];
 
 // Initial controls
