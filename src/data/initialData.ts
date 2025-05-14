@@ -64,6 +64,51 @@ export const initialRisks: Risk[] = [
     likelihood: 4,
     impact: 5,
     controlIds: []
+  },
+  {
+    id: '8',
+    name: 'Chargeback de transações não capturado ou contestado',
+    description: 'Chargeback de transações não capturado ou contestado',
+    category: 'Operational',
+    likelihood: 4,
+    impact: 4,
+    controlIds: []
+  },
+  {
+    id: '9',
+    name: 'Erros em processamento',
+    description: 'Erros em processamento de transações e demais rotinas automatizadas',
+    category: 'Operational',
+    likelihood: 4,
+    impact: 4,
+    controlIds: []
+  },
+  {
+    id: '10',
+    name: 'Lavagem de dinheiro',
+    description: 'Não conformidade com normas e leis relacionados a Prevenção de Lavagem de Dinheiro e Financiamento ao Terrorismo - PLD-FT ',
+    category: 'Compliance',
+    likelihood: 3,
+    impact: 5,
+    controlIds: []
+  },
+  {
+    id: '11',
+    name: 'Credenciamento de clientes irregular',
+    description: 'Credenciamento de clientes em desacordo com políticas internas e externas',
+    category: 'Compliance',
+    likelihood: 4,
+    impact: 3,
+    controlIds: []
+  },
+  {
+    id: '12',
+    name: 'Violação de SLAs regulatórios',
+    description: 'Violação de SLAs regulatórios (ex.: tempos do PIX, disponibilidade do Open Finance)',
+    category: 'Compliance',
+    likelihood: 3,
+    impact: 4,
+    controlIds: []
   }
 ];
 
