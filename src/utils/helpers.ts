@@ -1,4 +1,4 @@
-import { Risk, RiskLevel } from '../types';
+import { Risk, RiskLevel, ComplianceRequirement } from '../types';
 
 // Calculate risk level based on likelihood and impact
 export const calculateRiskLevel = (likelihood: number, impact: number): RiskLevel => {
@@ -115,6 +115,55 @@ export const importRisks = (file: File): Promise<Risk[]> => {
         });
         
         resolve(risks);
+      } catch (error) {
+        reject(error);
+      }
+    };
+    
+    reader.onerror = () => reject(new Error('Error reading file'));
+    reader.readAsText(file);
+  });
+};
+
+// Export compliance requirements to JSON file
+export const exportCompliance = (requirements: ComplianceRequirement[]) => {
+  const dataStr = JSON.stringify(requirements, null, 2);
+  const dataBlob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(dataBlob);
+  
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `grcwalk-compliance-${new Date().toISOString().split('T')[0]}.json`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
+// Import compliance requirements from JSON file
+export const importCompliance = (file: File): Promise<ComplianceRequirement[]> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    
+    reader.onload = (e) => {
+      try {
+        const content = e.target?.result as string;
+        const requirements = JSON.parse(content);
+        
+        // Validate imported data
+        if (!Array.isArray(requirements)) {
+          throw new Error('Invalid format: Expected an array of requirements');
+        }
+        
+        // Validate each requirement object
+        requirements.forEach((req: any) => {
+          if (!req.name || !req.description || !req.framework || 
+              !req.status || !req.dueDate || !req.assignee) {
+            throw new Error('Invalid requirement data: Missing required fields');
+          }
+        });
+        
+        resolve(requirements);
       } catch (error) {
         reject(error);
       }

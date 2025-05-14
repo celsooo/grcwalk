@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { ComplianceRequirement, ComplianceStatus } from '../types';
-import { Calendar, CheckCircle, AlertCircle, XCircle, MinusCircle, Search, Filter } from 'lucide-react';
+import { Calendar, CheckCircle, AlertCircle, XCircle, MinusCircle, Search, Filter, Plus, X, Download, Upload } from 'lucide-react';
+import { exportCompliance, importCompliance } from '../utils/helpers';
 
 const CompliancePage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [frameworkFilter, setFrameworkFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState<ComplianceStatus | ''>('');
-
-  // Example compliance requirements (in a real app, this would come from context/API)
-  const requirements: ComplianceRequirement[] = [
+  const [showForm, setShowForm] = useState(false);
+  const [importError, setImportError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  const [requirements, setRequirements] = useState<ComplianceRequirement[]>([
     {
       id: '1',
       name: 'Access Control Policy',
@@ -30,9 +33,19 @@ const CompliancePage: React.FC = () => {
       assignee: 'Jane Smith',
       evidence: 'Risk assessment report Q1 2024',
       controlIds: ['3']
-    },
-    // Add more sample requirements as needed
-  ];
+    }
+  ]);
+
+  const [formData, setFormData] = useState<Omit<ComplianceRequirement, 'id'>>({
+    name: '',
+    description: '',
+    framework: '',
+    status: 'Planned',
+    dueDate: '',
+    assignee: '',
+    evidence: '',
+    controlIds: []
+  });
 
   const frameworks = [...new Set(requirements.map(req => req.framework))];
 
@@ -73,6 +86,61 @@ const CompliancePage: React.FC = () => {
     return matchesSearch && matchesFramework && matchesStatus;
   });
 
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newRequirement: ComplianceRequirement = {
+      ...formData,
+      id: Math.random().toString(36).substring(2, 9)
+    };
+    setRequirements(prev => [...prev, newRequirement]);
+    setShowForm(false);
+    setFormData({
+      name: '',
+      description: '',
+      framework: '',
+      status: 'Planned',
+      dueDate: '',
+      assignee: '',
+      evidence: '',
+      controlIds: []
+    });
+  };
+
+  const handleExport = () => {
+    exportCompliance(requirements);
+  };
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImport = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setImportError(null);
+      const importedRequirements = await importCompliance(file);
+      setRequirements(prev => [...prev, ...importedRequirements]);
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    } catch (error) {
+      setImportError(error instanceof Error ? error.message : 'Error importing requirements');
+    }
+  };
+
   return (
     <div>
       <div className="mb-6">
@@ -80,6 +148,11 @@ const CompliancePage: React.FC = () => {
         <p className="mt-1 text-sm text-gray-500">
           Track and manage compliance requirements across different frameworks
         </p>
+        {importError && (
+          <div className="mt-2 p-2 text-sm text-red-600 bg-red-50 rounded-md">
+            {importError}
+          </div>
+        )}
       </div>
 
       {/* Stats Overview */}
@@ -106,6 +179,186 @@ const CompliancePage: React.FC = () => {
           );
         })}
       </div>
+
+      {/* Action Buttons */}
+      <div className="mb-6 flex space-x-3">
+        <button
+          onClick={() => setShowForm(true)}
+          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          <Plus className="-ml-1 mr-2 h-5 w-5" />
+          Add Requirement
+        </button>
+        <button
+          onClick={handleExport}
+          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          <Download className="-ml-1 mr-2 h-5 w-5" />
+          Export
+        </button>
+        <button
+          onClick={handleImportClick}
+          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          <Upload className="-ml-1 mr-2 h-5 w-5" />
+          Import
+        </button>
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleImport}
+          accept=".json"
+          className="hidden"
+        />
+      </div>
+
+      {/* Add Requirement Form */}
+      {showForm && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="px-4 py-5 sm:p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-medium text-gray-900">Add Compliance Requirement</h3>
+                <button
+                  onClick={() => setShowForm(false)}
+                  className="text-gray-400 hover:text-gray-500"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              
+              <form onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 gap-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      required
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                      Description
+                    </label>
+                    <textarea
+                      name="description"
+                      id="description"
+                      required
+                      value={formData.description}
+                      onChange={handleInputChange}
+                      rows={3}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="framework" className="block text-sm font-medium text-gray-700">
+                      Framework
+                    </label>
+                    <input
+                      type="text"
+                      name="framework"
+                      id="framework"
+                      required
+                      value={formData.framework}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+                      Status
+                    </label>
+                    <select
+                      name="status"
+                      id="status"
+                      required
+                      value={formData.status}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    >
+                      <option value="Compliant">Compliant</option>
+                      <option value="Partially Compliant">Partially Compliant</option>
+                      <option value="Non-Compliant">Non-Compliant</option>
+                      <option value="Not Applicable">Not Applicable</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700">
+                      Due Date
+                    </label>
+                    <input
+                      type="date"
+                      name="dueDate"
+                      id="dueDate"
+                      required
+                      value={formData.dueDate}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="assignee" className="block text-sm font-medium text-gray-700">
+                      Assignee
+                    </label>
+                    <input
+                      type="text"
+                      name="assignee"
+                      id="assignee"
+                      required
+                      value={formData.assignee}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="evidence" className="block text-sm font-medium text-gray-700">
+                      Evidence
+                    </label>
+                    <input
+                      type="text"
+                      name="evidence"
+                      id="evidence"
+                      required
+                      value={formData.evidence}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-6 flex justify-end space-x-3">
+                  <button
+                    type="button"
+                    onClick={() => setShowForm(false)}
+                    className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Add Requirement
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Filters */}
       <div className="bg-white shadow rounded-lg mb-6">
