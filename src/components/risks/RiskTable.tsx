@@ -98,6 +98,9 @@ const RiskTable: React.FC<RiskTableProps> = ({
             <thead className="bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  ID
+                </th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Name
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -123,6 +126,9 @@ const RiskTable: React.FC<RiskTableProps> = ({
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredRisks.map((risk) => (
                 <tr key={risk.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-mono text-gray-900">{risk.id}</div>
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">{risk.name}</div>
                     <div className="text-sm text-gray-500">{risk.description.substring(0, 40)}{risk.description.length > 40 ? '...' : ''}</div>
@@ -170,7 +176,7 @@ const RiskTable: React.FC<RiskTableProps> = ({
               ))}
               {filteredRisks.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-6 py-4 text-center text-sm text-gray-500">
+                  <td colSpan={8} className="px-6 py-4 text-center text-sm text-gray-500">
                     No risks found
                   </td>
                 </tr>
