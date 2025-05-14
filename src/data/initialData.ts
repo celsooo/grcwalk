@@ -4,10 +4,10 @@ import { Risk, Control, RiskFactor, Consequence, BowTieRelationship } from '../t
 export const initialRisks: Risk[] = [
   {
     id: '1',
-    name: 'Data Breach',
+    name: 'Ataque cibernético',
     description: 'Unauthorized access to sensitive customer data',
     category: 'Information Security',
-    likelihood: 3,
+    likelihood: 4,
     impact: 5,
     controlIds: ['1', '2']
   },
@@ -22,7 +22,7 @@ export const initialRisks: Risk[] = [
   },
   {
     id: '3',
-    name: 'System Downtime',
+    name: 'Indisponibilidade de sistemas',
     description: 'Critical systems unavailable during business hours',
     category: 'Operational',
     likelihood: 3,
@@ -31,31 +31,32 @@ export const initialRisks: Risk[] = [
   },
   {
     id: '4',
-    name: 'Third-party Vendor Failure',
+    name: 'Interrupção crítica de terceiros',
     description: 'Critical vendor unable to deliver services',
-    category: 'Supply Chain',
+    category: 'Operational',
     likelihood: 2,
     impact: 3,
     controlIds: ['5']
   },
   {
     id: '5',
-    name: 'Financial Fraud',
+    name: 'Fraude interna ou externa em transações',
     description: 'Internal or external fraud leading to financial loss',
     category: 'Financial',
-    likelihood: 2,
+    likelihood: 4,
     impact: 4,
     controlIds: ['6', '7']
   },
   {
     id: '6',
-    name: 'Physical Security Breach',
-    description: 'Unauthorized access to facilities',
-    category: 'Physical Security',
+    name: 'Vazamento de dados financeiros e de cartão',
+    description: 'Unauthorized access to sensitive customer data',
+    category: 'Information Security',
     likelihood: 1,
     impact: 3,
-    controlIds: ['8']
+    controlIds: ['1','2']
   }
+  
 ];
 
 // Initial controls
