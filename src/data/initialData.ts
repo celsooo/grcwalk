@@ -90,7 +90,7 @@ export const initialRisks: Risk[] = [
     category: 'Compliance',
     likelihood: 3,
     impact: 5,
-    controlIds: []
+    controlIds: ['3']
   },
   {
     id: '11',
@@ -99,7 +99,7 @@ export const initialRisks: Risk[] = [
     category: 'Compliance',
     likelihood: 4,
     impact: 3,
-    controlIds: []
+    controlIds: ['3']
   },
   {
     id: '12',
