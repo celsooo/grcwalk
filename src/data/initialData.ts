@@ -23,7 +23,7 @@ export const initialRisks: Risk[] = [
   {
     id: '3',
     name: 'Indisponibilidade de sistemas',
-    description: 'Critical systems unavailable during business hours',
+    description: 'Sistemas de pagamentos críticos indisponíveis',
     category: 'Operational',
     likelihood: 3,
     impact: 4,
@@ -32,7 +32,7 @@ export const initialRisks: Risk[] = [
   {
     id: '4',
     name: 'Interrupção crítica de terceiros',
-    description: 'Critical vendor unable to deliver services',
+    description: 'Fornecedores, parceiros e demais terceiros indisponíveis, impactando na entrega de serviços',
     category: 'Operational',
     likelihood: 2,
     impact: 3,
@@ -50,7 +50,7 @@ export const initialRisks: Risk[] = [
   {
     id: '6',
     name: 'Vazamento de dados financeiros e de cartão',
-    description: 'Unauthorized access to sensitive customer data',
+    description: 'Acesso não autorizado a dados financeiros sensíveis',
     category: 'Information Security',
     likelihood: 1,
     impact: 3,
