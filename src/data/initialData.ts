@@ -5,7 +5,7 @@ export const initialRisks: Risk[] = [
   {
     id: '1',
     name: 'Ataque cibernético',
-    description: 'Unauthorized access to sensitive customer data',
+    description: 'Ataque cibernético impactando na execução de serviços críticos',
     category: 'Information Security',
     likelihood: 4,
     impact: 5,
@@ -13,7 +13,7 @@ export const initialRisks: Risk[] = [
   },
   {
     id: '2',
-    name: 'Regulatory Non-compliance',
+    name: 'Não compliance com resoluções BCB',
     description: 'Failure to comply with relevant regulations',
     category: 'Compliance',
     likelihood: 2,
