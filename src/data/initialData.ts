@@ -64,7 +64,7 @@ export const initialRisks: Risk[] = [
     likelihood: 4,
     impact: 5,
     controlIds: []
-  
+  }
 ];
 
 // Initial controls
