@@ -42,7 +42,7 @@ export const initialRisks: Risk[] = [
     id: '5',
     name: 'Fraude interna ou externa em transações',
     description: 'Fraude interna ou externa em transações ocasionando em perda financeira',
-    category: 'Financial',
+    category: 'Operational',
     likelihood: 4,
     impact: 4,
     controlIds: ['6', '7']
