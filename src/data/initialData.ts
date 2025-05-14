@@ -13,8 +13,8 @@ export const initialRisks: Risk[] = [
   },
   {
     id: '2',
-    name: 'Não compliance com resoluções BCB',
-    description: 'Failure to comply with relevant regulations',
+    name: 'Não compliance com Risco Operacional',
+    description: 'Descumprimento de Resoluções BCB relacionadas a Risco Operacional (ex.: 198, 265)',
     category: 'Compliance',
     likelihood: 2,
     impact: 4,
@@ -55,7 +55,15 @@ export const initialRisks: Risk[] = [
     likelihood: 1,
     impact: 3,
     controlIds: ['1','2']
-  }
+  },
+  {
+    id: '7',
+    name: 'Erros em liquidações financeiras ou reconciliação de valores',
+    description: 'Erros em liquidações financeiras ou reconciliação de valores',
+    category: 'Operational',
+    likelihood: 4,
+    impact: 5,
+    controlIds: []
   
 ];
 
