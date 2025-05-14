@@ -50,68 +50,42 @@ const ControlStatusChart: React.FC = () => {
     }
   ];
 
-  // Calculate stroke dasharray and offset for each segment
-  let cumulativePercentage = 0;
-  const segments = statusData.map(status => {
-    const segment = {
-      ...status,
-      offset: cumulativePercentage,
-      dashArray: `${status.percentage} ${100 - status.percentage}`
-    };
-    cumulativePercentage += status.percentage;
-    return segment;
-  });
-
   return (
     <div className="bg-white overflow-hidden shadow rounded-lg">
       <div className="p-5">
-        <h3 className="text-lg leading-6 font-medium text-gray-900">Control Status</h3>
-        <div className="mt-5">
-          {/* Donut chart */}
-          <div className="relative mx-auto h-48 w-48">
-            <svg viewBox="0 0 100 100" className="transform -rotate-90">
-              {segments.map((segment, index) => (
-                <circle
-                  key={segment.name}
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  fill="none"
-                  stroke={segment.color.replace('bg-', 'rgb').replace('500', '500').replace('400', '400')}
-                  strokeWidth="20"
-                  strokeDasharray={segment.dashArray}
-                  strokeDashoffset={-segment.offset}
-                  className="transition-all duration-500"
-                />
-              ))}
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-800">{total}</div>
-                <div className="text-sm text-gray-500">Total Controls</div>
-              </div>
-            </div>
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg leading-6 font-medium text-gray-900">Control Status</h3>
+          <div className="text-right">
+            <div className="text-3xl font-bold text-gray-800">{total}</div>
+            <div className="text-sm text-gray-500">Total Controls</div>
           </div>
-          
-          {/* Legend */}
-          <div className="mt-8 grid grid-cols-2 gap-4">
-            {statusData.map(status => (
-              <div key={status.name} className="flex items-center space-x-2">
-                <div className={`h-3 w-3 rounded-full ${status.color}`} />
-                <div className="flex-1">
-                  <div className="text-sm font-medium text-gray-600">{status.name}</div>
-                  <div className="flex items-baseline space-x-2">
-                    <span className={`text-lg font-semibold ${status.textColor}`}>
-                      {status.count}
-                    </span>
-                    <span className="text-xs text-gray-500">
-                      ({Math.round(status.percentage)}%)
-                    </span>
-                  </div>
+        </div>
+
+        <div className="space-y-4">
+          {statusData.map(status => (
+            <div key={status.name} className="relative">
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center">
+                  <div className={`h-3 w-3 rounded-full ${status.color} mr-2`} />
+                  <span className="text-sm font-medium text-gray-600">{status.name}</span>
+                </div>
+                <div className="flex items-baseline space-x-2">
+                  <span className={`text-sm font-semibold ${status.textColor}`}>
+                    {status.count}
+                  </span>
+                  <span className="text-xs text-gray-500">
+                    ({Math.round(status.percentage)}%)
+                  </span>
                 </div>
               </div>
-            ))}
-          </div>
+              <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                <div 
+                  className={`h-full ${status.color} transition-all duration-500`}
+                  style={{ width: `${status.percentage}%` }}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
