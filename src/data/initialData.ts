@@ -41,7 +41,7 @@ export const initialRisks: Risk[] = [
   {
     id: '5',
     name: 'Fraude interna ou externa em transações',
-    description: 'Internal or external fraud leading to financial loss',
+    description: 'Fraude interna ou externa em transações ocasionando em perda financeira',
     category: 'Financial',
     likelihood: 4,
     impact: 4,
