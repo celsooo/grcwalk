@@ -4,6 +4,8 @@ export type RiskLevel = 'Low' | 'Medium' | 'High' | 'Critical';
 export type ControlStatus = 'Implemented' | 'Partial' | 'Planned' | 'Not Implemented';
 export type ControlType = 'Preventive' | 'Detective' | 'Corrective' | 'Directive';
 export type ComplianceStatus = 'Compliant' | 'Partially Compliant' | 'Non-Compliant' | 'Not Applicable';
+export type ActionStatus = 'Not Started' | 'In Progress' | 'Completed' | 'Overdue' | 'Cancelled';
+export type ActionPriority = 'Low' | 'Medium' | 'High' | 'Critical';
 
 // Risk definition
 export interface Risk {
@@ -26,6 +28,39 @@ export interface Control {
   status: ControlStatus;
   effectiveness: number; // 1-5
   riskIds: string[]; // References to risks
+}
+
+// Action Plan definition
+export interface ActionPlan {
+  id: string;
+  title: string;
+  description: string;
+  status: ActionStatus;
+  priority: ActionPriority;
+  dueDate: string;
+  assignee: string;
+  progress: number; // 0-100
+  relatedRiskIds: string[];
+  relatedControlIds: string[];
+  tasks: ActionTask[];
+  comments: ActionComment[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ActionTask {
+  id: string;
+  title: string;
+  completed: boolean;
+  dueDate?: string;
+  assignee?: string;
+}
+
+export interface ActionComment {
+  id: string;
+  content: string;
+  author: string;
+  timestamp: string;
 }
 
 // Risk Factor definition for Bow-tie analysis

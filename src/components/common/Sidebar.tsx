@@ -7,7 +7,8 @@ import {
   GitCompare,
   Menu,
   X,
-  ScrollText
+  ScrollText,
+  ClipboardList
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -24,7 +25,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
     { id: 'heatmap', name: 'Risk Heatmap', icon: <Grid className="w-5 h-5" /> },
     { id: 'controls', name: 'Controls', icon: <Shield className="w-5 h-5" /> },
     { id: 'bowtie', name: 'Bow-Tie Analysis', icon: <GitCompare className="w-5 h-5" /> },
-    { id: 'compliance', name: 'Compliance', icon: <ScrollText className="w-5 h-5" /> }
+    { id: 'compliance', name: 'Compliance', icon: <ScrollText className="w-5 h-5" /> },
+    { id: 'actions', name: 'Action Plans', icon: <ClipboardList className="w-5 h-5" /> }
   ];
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
