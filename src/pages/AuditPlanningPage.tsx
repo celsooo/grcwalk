@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AuditPlan, AuditStatus, RiskLevel, ActionStatus } from '../types';
 import { Plus, Search, Calendar, Clock, CheckCircle2, AlertCircle, XCircle, MoreVertical, FileSpreadsheet } from 'lucide-react';
+import AuditPlanForm from '../components/audits/AuditPlanForm';
 
 const AuditPlanningPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -49,6 +50,18 @@ const AuditPlanningPage: React.FC = () => {
       updatedAt: '2024-04-05T10:00:00Z'
     }
   ]);
+
+  const handleSaveAuditPlan = (auditPlan: Omit<AuditPlan, 'id' | 'createdAt' | 'updatedAt'>) => {
+    const now = new Date().toISOString();
+    const newAuditPlan: AuditPlan = {
+      ...auditPlan,
+      id: Math.random().toString(36).substring(2),
+      createdAt: now,
+      updatedAt: now
+    };
+    setAuditPlans(prev => [...prev, newAuditPlan]);
+    setShowForm(false);
+  };
 
   const getStatusIcon = (status: AuditStatus) => {
     switch (status) {
@@ -120,6 +133,13 @@ const AuditPlanningPage: React.FC = () => {
           Plan and track internal and external audits
         </p>
       </div>
+
+      {showForm && (
+        <AuditPlanForm
+          onSave={handleSaveAuditPlan}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-6">
