@@ -6,6 +6,7 @@ export type ControlType = 'Preventive' | 'Detective' | 'Corrective' | 'Directive
 export type ComplianceStatus = 'Compliant' | 'Partially Compliant' | 'Non-Compliant' | 'Not Applicable';
 export type ActionStatus = 'Not Started' | 'In Progress' | 'Completed' | 'Overdue' | 'Cancelled';
 export type ActionPriority = 'Low' | 'Medium' | 'High' | 'Critical';
+export type AuditStatus = 'Planned' | 'In Progress' | 'Completed' | 'Delayed' | 'Cancelled';
 
 // Risk definition
 export interface Risk {
@@ -107,4 +108,45 @@ export interface ComplianceFramework {
   description: string;
   version: string;
   requirements: ComplianceRequirement[];
+}
+
+// Audit Plan
+export interface AuditPlan {
+  id: string;
+  title: string;
+  description: string;
+  scope: string;
+  objectives: string[];
+  status: AuditStatus;
+  startDate: string;
+  endDate: string;
+  auditor: string;
+  auditType: string;
+  relatedControlIds: string[];
+  relatedRiskIds: string[];
+  checklistItems: AuditChecklistItem[];
+  findings: AuditFinding[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AuditChecklistItem {
+  id: string;
+  description: string;
+  completed: boolean;
+  evidence?: string;
+  notes?: string;
+}
+
+export interface AuditFinding {
+  id: string;
+  title: string;
+  description: string;
+  severity: RiskLevel;
+  recommendation: string;
+  responsibleParty: string;
+  dueDate: string;
+  status: ActionStatus;
+  createdAt: string;
+  updatedAt: string;
 }
