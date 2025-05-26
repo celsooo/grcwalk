@@ -4,29 +4,11 @@ import StatCard from '../components/dashboard/StatCard';
 import RiskStatusChart from '../components/dashboard/RiskStatusChart';
 import RecentRisks from '../components/dashboard/RecentRisks';
 import ControlStatusChart from '../components/dashboard/ControlStatusChart';
-import LoadingSpinner from '../components/common/LoadingSpinner';
-import ErrorMessage from '../components/common/ErrorMessage';
 import { Shield, AlertTriangle, Check, GitBranch, ScrollText, ClipboardList } from 'lucide-react';
 import { calculateRiskLevel } from '../utils/helpers';
 
 const Dashboard: React.FC = () => {
-  const { 
-    risks, 
-    controls, 
-    riskFactors, 
-    consequences, 
-    loading, 
-    error, 
-    refreshData 
-  } = useGRC();
-
-  if (loading) {
-    return <LoadingSpinner text="Loading dashboard data..." />;
-  }
-
-  if (error) {
-    return <ErrorMessage message={error} onRetry={refreshData} />;
-  }
+  const { risks, controls, riskFactors, consequences } = useGRC();
   
   // Calculate critical and high risks
   const highImpactRisks = risks.filter(risk => {
@@ -209,7 +191,7 @@ const Dashboard: React.FC = () => {
                 <div className="mt-2 flex justify-between items-baseline">
                   <div className="text-2xl font-semibold text-blue-900 dark:text-blue-200">{riskFactors.length}</div>
                   <div className="text-sm text-blue-700 dark:text-blue-300">
-                    {risks.length > 0 ? Math.round(riskFactors.length / risks.length * 100) : 0}% coverage
+                    {Math.round(riskFactors.length / risks.length * 100)}% coverage
                   </div>
                 </div>
               </div>
@@ -220,7 +202,7 @@ const Dashboard: React.FC = () => {
                 <div className="mt-2 flex justify-between items-baseline">
                   <div className="text-2xl font-semibold text-amber-900 dark:text-amber-200">{consequences.length}</div>
                   <div className="text-sm text-amber-700 dark:text-amber-300">
-                    {risks.length > 0 ? Math.round(consequences.length / risks.length * 100) : 0}% coverage
+                    {Math.round(consequences.length / risks.length * 100)}% coverage
                   </div>
                 </div>
               </div>
