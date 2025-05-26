@@ -9,7 +9,8 @@ import {
   X,
   ScrollText,
   ClipboardList,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Settings
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -28,7 +29,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
     { id: 'bowtie', name: 'Bow-Tie Analysis', icon: <GitCompare className="w-5 h-5" /> },
     { id: 'compliance', name: 'Compliance', icon: <ScrollText className="w-5 h-5" /> },
     { id: 'actions', name: 'Action Plans', icon: <ClipboardList className="w-5 h-5" /> },
-    { id: 'audits', name: 'Audit Planning', icon: <FileSpreadsheet className="w-5 h-5" /> }
+    { id: 'audits', name: 'Audit Planning', icon: <FileSpreadsheet className="w-5 h-5" /> },
+    { id: 'settings', name: 'Settings', icon: <Settings className="w-5 h-5" /> }
   ];
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
@@ -62,12 +64,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
           }`}
           onClick={e => e.stopPropagation()}
         >
-          <div className="p-6 space-y-6">
-            <div className="flex items-center space-x-3">
-              <Shield className="h-8 w-8 text-blue-600" />
-              <h2 className="text-xl font-bold text-gray-900">GRCWalk</h2>
-            </div>
-            <nav className="space-y-1">
+          <nav className="h-full pt-5 pb-4 overflow-y-auto">
+            <div className="px-2 space-y-1">
               {navItems.map(item => (
                 <a
                   key={item.id}
@@ -86,8 +84,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
                   <span className="ml-3">{item.name}</span>
                 </a>
               ))}
-            </nav>
-          </div>
+            </div>
+          </nav>
         </div>
       </div>
 
@@ -95,11 +93,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
       <aside className="hidden md:flex md:flex-shrink-0">
         <div className="w-64 flex flex-col h-screen border-r border-gray-200 bg-white">
           <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-            <div className="flex items-center flex-shrink-0 px-4 space-x-3">
-              <Shield className="h-8 w-8 text-blue-600" />
-              <h2 className="text-xl font-bold text-gray-900">GRCWalk</h2>
-            </div>
-            <nav className="mt-8 flex-1 px-2 space-y-1">
+            <nav className="flex-1 px-2 space-y-1">
               {navItems.map(item => (
                 <a
                   key={item.id}

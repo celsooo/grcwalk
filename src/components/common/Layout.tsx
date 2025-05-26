@@ -9,6 +9,7 @@ import BowTieAnalysisPage from '../../pages/BowTieAnalysisPage';
 import CompliancePage from '../../pages/CompliancePage';
 import ActionPlansPage from '../../pages/ActionPlansPage';
 import AuditPlanningPage from '../../pages/AuditPlanningPage';
+import SettingsPage from '../../pages/SettingsPage';
 
 interface LayoutProps {
   children?: ReactNode;
@@ -35,6 +36,8 @@ const Layout: React.FC<LayoutProps> = () => {
         return <ActionPlansPage />;
       case 'audits':
         return <AuditPlanningPage />;
+      case 'settings':
+        return <SettingsPage />;
       default:
         return <Dashboard />;
     }
