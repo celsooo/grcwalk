@@ -10,6 +10,7 @@ import CompliancePage from '../../pages/CompliancePage';
 import ActionPlansPage from '../../pages/ActionPlansPage';
 import AuditPlanningPage from '../../pages/AuditPlanningPage';
 import SettingsPage from '../../pages/SettingsPage';
+import VendorManagementPage from '../../pages/VendorManagementPage';
 
 interface LayoutProps {
   children?: ReactNode;
@@ -36,6 +37,8 @@ const Layout: React.FC<LayoutProps> = () => {
         return <ActionPlansPage />;
       case 'audits':
         return <AuditPlanningPage />;
+      case 'vendors':
+        return <VendorManagementPage />;
       case 'settings':
         return <SettingsPage />;
       default:
