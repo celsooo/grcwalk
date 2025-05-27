@@ -41,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
       <div className="md:hidden fixed top-4 left-4 z-50">
         <button
           type="button"
-          className="text-gray-500 hover:text-gray-600 focus:outline-none"
+          className="text-gray-500 hover:text-gray-600 focus:outline-none dark:text-gray-400 dark:hover:text-gray-300"
           onClick={toggleMobileMenu}
         >
           {mobileMenuOpen ? 
@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
         onClick={toggleMobileMenu}
       >
         <div 
-          className={`fixed inset-y-0 left-0 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${
+          className={`fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out ${
             mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
           onClick={e => e.stopPropagation()}
@@ -72,8 +72,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
                   href="#"
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-md ${
                     activePage === item.id
-                      ? 'bg-blue-50 text-blue-700'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-200'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700/50 dark:hover:text-gray-100'
                   }`}
                   onClick={() => {
                     onPageChange(item.id);
@@ -91,7 +91,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
 
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex md:flex-shrink-0">
-        <div className="w-64 flex flex-col h-screen border-r border-gray-200 bg-white">
+        <div className="w-64 flex flex-col h-screen border-r border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700">
           <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
             <nav className="flex-1 px-2 space-y-1">
               {navItems.map(item => (
@@ -100,8 +100,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
                   href="#"
                   className={`group flex items-center px-4 py-3 text-sm font-medium rounded-md ${
                     activePage === item.id
-                      ? 'bg-blue-50 text-blue-700'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-200'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700/50 dark:hover:text-gray-100'
                   }`}
                   onClick={() => onPageChange(item.id)}
                 >

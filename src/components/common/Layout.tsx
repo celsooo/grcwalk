@@ -44,11 +44,11 @@ const Layout: React.FC<LayoutProps> = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
+    <div className="h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
       <Header />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar activePage={activePage} onPageChange={setActivePage} />
-        <main className="flex-1 overflow-auto p-4 md:p-6">
+        <main className="flex-1 overflow-auto p-4 md:p-6 dark:bg-gray-900">
           {renderContent()}
         </main>
       </div>
