@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Vendor, VendorStatus, VendorCriticality } from '../types';
 import { Search, Plus, Building2, FileCheck, AlertTriangle, Calendar, Download, Upload } from 'lucide-react';
+import VendorForm from '../components/vendors/VendorForm';
 
 const VendorManagementPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -9,7 +10,7 @@ const VendorManagementPage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
 
   // Sample data - in a real app this would come from context/API
-  const [vendors] = useState<Vendor[]>([
+  const [vendors, setVendors] = useState<Vendor[]>([
     {
       id: '1',
       name: 'Cloud Services Provider',
@@ -54,6 +55,17 @@ const VendorManagementPage: React.FC = () => {
       relatedControlIds: ['1', '2']
     }
   ]);
+
+  const handleSaveVendor = (vendorData: Omit<Vendor, 'id' | 'documents' | 'assessments'>) => {
+    const newVendor: Vendor = {
+      ...vendorData,
+      id: Math.random().toString(36).substring(2, 9),
+      documents: [],
+      assessments: []
+    };
+    setVendors(prev => [...prev, newVendor]);
+    setShowForm(false);
+  };
 
   const getStatusColor = (status: VendorStatus) => {
     switch (status) {
@@ -109,6 +121,13 @@ const VendorManagementPage: React.FC = () => {
           Manage and assess third-party vendor risks
         </p>
       </div>
+
+      {showForm && (
+        <VendorForm
+          onSave={handleSaveVendor}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-6">
