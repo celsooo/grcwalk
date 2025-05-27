@@ -10,7 +10,7 @@ import {
   ScrollText,
   ClipboardList,
   FileSpreadsheet,
-  Settings
+  Building2
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -30,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onPageChange }) => {
     { id: 'compliance', name: 'Compliance', icon: <ScrollText className="w-5 h-5" /> },
     { id: 'actions', name: 'Action Plans', icon: <ClipboardList className="w-5 h-5" /> },
     { id: 'audits', name: 'Audit Planning', icon: <FileSpreadsheet className="w-5 h-5" /> },
-    { id: 'settings', name: 'Settings', icon: <Settings className="w-5 h-5" /> }
+    { id: 'vendors', name: 'Third Party Risk', icon: <Building2 className="w-5 h-5" /> }
   ];
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);

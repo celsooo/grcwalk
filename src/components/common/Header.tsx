@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Moon, Sun } from 'lucide-react';
+import { Shield, Moon, Sun, Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -20,8 +20,9 @@ const Header: React.FC = () => {
           </a>
           <button 
             onClick={() => navigate('/settings')}
-            className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium"
+            className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium flex items-center"
           >
+            <Settings className="h-5 w-5 mr-1" />
             Settings
           </button>
           <a 

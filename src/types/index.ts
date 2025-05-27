@@ -7,6 +7,8 @@ export type ComplianceStatus = 'Compliant' | 'Partially Compliant' | 'Non-Compli
 export type ActionStatus = 'Not Started' | 'In Progress' | 'Completed' | 'Overdue' | 'Cancelled';
 export type ActionPriority = 'Low' | 'Medium' | 'High' | 'Critical';
 export type AuditStatus = 'Planned' | 'In Progress' | 'Completed' | 'Delayed' | 'Cancelled';
+export type VendorStatus = 'Active' | 'Inactive' | 'Under Review' | 'Terminated';
+export type VendorCriticality = 'Critical' | 'High' | 'Medium' | 'Low';
 
 // Risk definition
 export interface Risk {
@@ -149,4 +151,49 @@ export interface AuditFinding {
   status: ActionStatus;
   createdAt: string;
   updatedAt: string;
+}
+
+// Third Party / Vendor Management
+export interface Vendor {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  status: VendorStatus;
+  criticality: VendorCriticality;
+  onboardingDate: string;
+  lastAssessmentDate: string;
+  nextAssessmentDate: string;
+  contactName: string;
+  contactEmail: string;
+  contactPhone: string;
+  services: string[];
+  riskScore: number;
+  riskLevel: RiskLevel;
+  documents: VendorDocument[];
+  assessments: VendorAssessment[];
+  relatedRiskIds: string[];
+  relatedControlIds: string[];
+}
+
+export interface VendorDocument {
+  id: string;
+  name: string;
+  type: string;
+  uploadDate: string;
+  expiryDate?: string;
+  status: 'Valid' | 'Expired' | 'Expiring Soon';
+  url: string;
+}
+
+export interface VendorAssessment {
+  id: string;
+  date: string;
+  type: string;
+  score: number;
+  findings: string[];
+  status: 'Completed' | 'In Progress' | 'Scheduled';
+  assessor: string;
+  dueDate: string;
+  completionDate?: string;
 }
