@@ -36,11 +36,19 @@ app.use((err, req, res, next) => {
 // Start server
 const startServer = async () => {
   try {
+    console.log('🚀 Starting GRCWalk server...');
+    
     // Test database connection
     const dbConnected = await testConnection();
     
     if (!dbConnected) {
       console.error('❌ Cannot start server without database connection');
+      console.log('📋 Please ensure MySQL is running and check your .env configuration:');
+      console.log('   - DB_HOST=localhost');
+      console.log('   - DB_PORT=3306');
+      console.log('   - DB_USER=grcwalk_user');
+      console.log('   - DB_PASSWORD=grcwalk_password');
+      console.log('   - DB_NAME=grcwalk_db');
       process.exit(1);
     }
 
@@ -48,19 +56,22 @@ const startServer = async () => {
     try {
       await setupDatabase();
     } catch (error) {
-      console.warn('⚠️  Database setup failed (may already exist):', error.message);
+      console.warn('⚠️  Database setup failed:', error.message);
+      console.log('📋 This might be normal if the database already exists');
     }
 
     // Seed database with initial data
     try {
       await seedDatabase();
     } catch (error) {
-      console.warn('⚠️  Database seeding failed (may already be seeded):', error.message);
+      console.warn('⚠️  Database seeding failed:', error.message);
+      console.log('📋 This might be normal if the database already contains data');
     }
 
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`📊 API available at http://localhost:${PORT}/api`);
+      console.log(`🌐 Frontend should connect to http://localhost:5173`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);
