@@ -79,7 +79,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
             <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
               <div className="sm:col-span-3">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Vendor Name
+                  Vendor Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -94,7 +94,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-3">
                 <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-                  Category
+                  Category <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -109,7 +109,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-6">
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                  Description
+                  Description <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   name="description"
@@ -124,7 +124,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-3">
                 <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                  Status
+                  Status <span className="text-red-500">*</span>
                 </label>
                 <select
                   id="status"
@@ -143,7 +143,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-3">
                 <label htmlFor="criticality" className="block text-sm font-medium text-gray-700">
-                  Criticality
+                  Criticality <span className="text-red-500">*</span>
                 </label>
                 <select
                   id="criticality"
@@ -162,7 +162,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-2">
                 <label htmlFor="onboardingDate" className="block text-sm font-medium text-gray-700">
-                  Onboarding Date
+                  Onboarding Date <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="date"
@@ -177,7 +177,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-2">
                 <label htmlFor="lastAssessmentDate" className="block text-sm font-medium text-gray-700">
-                  Last Assessment
+                  Last Assessment <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="date"
@@ -192,7 +192,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-2">
                 <label htmlFor="nextAssessmentDate" className="block text-sm font-medium text-gray-700">
-                  Next Assessment
+                  Next Assessment <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="date"
@@ -207,7 +207,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-2">
                 <label htmlFor="contactName" className="block text-sm font-medium text-gray-700">
-                  Contact Name
+                  Contact Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -222,7 +222,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-2">
                 <label htmlFor="contactEmail" className="block text-sm font-medium text-gray-700">
-                  Contact Email
+                  Contact Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="email"
@@ -237,7 +237,7 @@ const VendorForm: React.FC<VendorFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-2">
                 <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-700">
-                  Contact Phone
+                  Contact Phone <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="tel"

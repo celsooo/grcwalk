@@ -101,7 +101,7 @@ const AuditPlanForm: React.FC<AuditPlanFormProps> = ({ onSave, onCancel }) => {
             <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
               <div className="sm:col-span-6">
                 <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                  Title
+                  Title <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -116,7 +116,7 @@ const AuditPlanForm: React.FC<AuditPlanFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-6">
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                  Description
+                  Description <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   name="description"
@@ -131,7 +131,7 @@ const AuditPlanForm: React.FC<AuditPlanFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-6">
                 <label htmlFor="scope" className="block text-sm font-medium text-gray-700">
-                  Scope
+                  Scope <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   name="scope"
@@ -182,7 +182,7 @@ const AuditPlanForm: React.FC<AuditPlanFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-3">
                 <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
-                  Start Date
+                  Start Date <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="date"
@@ -197,7 +197,7 @@ const AuditPlanForm: React.FC<AuditPlanFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-3">
                 <label htmlFor="endDate" className="block text-sm font-medium text-gray-700">
-                  End Date
+                  End Date <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="date"
@@ -212,7 +212,7 @@ const AuditPlanForm: React.FC<AuditPlanFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-3">
                 <label htmlFor="auditor" className="block text-sm font-medium text-gray-700">
-                  Auditor
+                  Auditor <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -227,7 +227,7 @@ const AuditPlanForm: React.FC<AuditPlanFormProps> = ({ onSave, onCancel }) => {
 
               <div className="sm:col-span-3">
                 <label htmlFor="auditType" className="block text-sm font-medium text-gray-700">
-                  Audit Type
+                  Audit Type <span className="text-red-500">*</span>
                 </label>
                 <select
                   id="auditType"
