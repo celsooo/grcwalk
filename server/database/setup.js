@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { executeQuery } from './connection.js';
+import { executeMultipleQueries } from './connection.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,11 +17,9 @@ export const setupDatabase = async () => {
     const statements = schema
       .split(';')
       .map(stmt => stmt.trim())
-      .filter(stmt => stmt.length > 0);
+      .filter(stmt => stmt.length > 0 && !stmt.startsWith('--'));
     
-    for (const statement of statements) {
-      await executeQuery(statement);
-    }
+    await executeMultipleQueries(statements);
     
     console.log('✅ Database schema setup completed');
   } catch (error) {

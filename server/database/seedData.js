@@ -17,7 +17,14 @@ export const seedDatabase = async () => {
   try {
     console.log('🌱 Starting database seeding...');
 
-    // Clear existing data
+    // Check if data already exists
+    const existingRisks = await executeQuery('SELECT COUNT(*) as count FROM risks');
+    if (existingRisks[0].count > 0) {
+      console.log('📊 Database already contains data, skipping seeding');
+      return;
+    }
+
+    // Clear existing data (in case of partial data)
     await executeQuery('SET FOREIGN_KEY_CHECKS = 0');
     
     const tables = [
@@ -32,7 +39,12 @@ export const seedDatabase = async () => {
     ];
 
     for (const table of tables) {
-      await executeQuery(`DELETE FROM ${table}`);
+      try {
+        await executeQuery(`DELETE FROM ${table}`);
+      } catch (error) {
+        // Table might not exist yet, continue
+        console.log(`Table ${table} might not exist yet, continuing...`);
+      }
     }
 
     await executeQuery('SET FOREIGN_KEY_CHECKS = 1');

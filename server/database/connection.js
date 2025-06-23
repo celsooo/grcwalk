@@ -14,18 +14,34 @@ const dbConfig = {
   queueLimit: 0,
   acquireTimeout: 60000,
   timeout: 60000,
-  reconnect: true
+  reconnect: true,
+  multipleStatements: true
 };
 
 // Create connection pool
 const pool = mysql.createPool(dbConfig);
 
-// Test connection
+// Test connection and create database if it doesn't exist
 export const testConnection = async () => {
   try {
-    const connection = await pool.getConnection();
-    console.log('✅ Database connected successfully');
+    // First try to connect without specifying database
+    const tempConfig = { ...dbConfig };
+    delete tempConfig.database;
+    const tempPool = mysql.createPool(tempConfig);
+    
+    const connection = await tempPool.getConnection();
+    
+    // Create database if it doesn't exist
+    await connection.execute(`CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`);
+    await connection.execute(`USE ${dbConfig.database}`);
+    
     connection.release();
+    await tempPool.end();
+    
+    // Now test the main connection
+    const mainConnection = await pool.getConnection();
+    console.log('✅ Database connected successfully');
+    mainConnection.release();
     return true;
   } catch (error) {
     console.error('❌ Database connection failed:', error.message);
@@ -41,6 +57,29 @@ export const executeQuery = async (query, params = []) => {
   } catch (error) {
     console.error('Database query error:', error);
     throw error;
+  }
+};
+
+// Execute multiple queries (for schema setup)
+export const executeMultipleQueries = async (queries) => {
+  const connection = await pool.getConnection();
+  try {
+    await connection.beginTransaction();
+    
+    for (const query of queries) {
+      if (query.trim()) {
+        await connection.execute(query);
+      }
+    }
+    
+    await connection.commit();
+    console.log('✅ Multiple queries executed successfully');
+  } catch (error) {
+    await connection.rollback();
+    console.error('❌ Error executing multiple queries:', error);
+    throw error;
+  } finally {
+    connection.release();
   }
 };
 
