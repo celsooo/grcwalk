@@ -1,5 +1,4 @@
 import { executeQuery } from './connection.js';
-import { v4 as uuidv4 } from 'uuid';
 
 const calculateRiskLevel = (likelihood, impact) => {
   const score = likelihood * impact;
@@ -7,6 +6,11 @@ const calculateRiskLevel = (likelihood, impact) => {
   if (score >= 8) return 'High';
   if (score >= 3) return 'Medium';
   return 'Low';
+};
+
+const generateId = () => {
+  return Math.random().toString(36).substring(2, 15) + 
+         Math.random().toString(36).substring(2, 15);
 };
 
 export const seedDatabase = async () => {
@@ -36,7 +40,7 @@ export const seedDatabase = async () => {
     // Seed risks
     const risks = [
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Ataque cibernético',
         description: 'Ataque cibernético impactando na execução de serviços críticos',
         category: 'Information Security',
@@ -44,7 +48,7 @@ export const seedDatabase = async () => {
         impact: 5
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Não compliance com Risco Operacional',
         description: 'Descumprimento de Resoluções BCB relacionadas a Risco Operacional (ex.: 198, 265)',
         category: 'Compliance',
@@ -52,7 +56,7 @@ export const seedDatabase = async () => {
         impact: 4
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Indisponibilidade de sistemas',
         description: 'Sistemas de pagamentos críticos indisponíveis',
         category: 'Operational',
@@ -60,7 +64,7 @@ export const seedDatabase = async () => {
         impact: 4
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Interrupção crítica de terceiros',
         description: 'Fornecedores, parceiros e demais terceiros indisponíveis, impactando na entrega de serviços',
         category: 'Operational',
@@ -68,7 +72,7 @@ export const seedDatabase = async () => {
         impact: 3
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Fraude interna ou externa em transações',
         description: 'Fraude interna ou externa em transações ocasionando em perda financeira',
         category: 'Operational',
@@ -88,7 +92,7 @@ export const seedDatabase = async () => {
     // Seed controls
     const controls = [
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Data Encryption',
         description: 'All sensitive data is encrypted at rest and in transit',
         type: 'Preventive',
@@ -96,7 +100,7 @@ export const seedDatabase = async () => {
         effectiveness: 4
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Access Controls',
         description: 'Role-based access control to systems and data',
         type: 'Preventive',
@@ -104,7 +108,7 @@ export const seedDatabase = async () => {
         effectiveness: 3
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Compliance Monitoring',
         description: 'Regular audit and monitoring of compliance requirements',
         type: 'Detective',
@@ -112,7 +116,7 @@ export const seedDatabase = async () => {
         effectiveness: 2
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Redundant Systems',
         description: 'Backup systems and failover mechanisms',
         type: 'Corrective',
@@ -145,17 +149,17 @@ export const seedDatabase = async () => {
     // Seed risk factors
     const riskFactors = [
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Weak Passwords',
         description: 'Use of easy-to-guess passwords by users'
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Phishing Attempts',
         description: 'Social engineering attacks via email or messaging'
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Outdated Software',
         description: 'Systems running unpatched or obsolete software'
       }
@@ -171,17 +175,17 @@ export const seedDatabase = async () => {
     // Seed consequences
     const consequences = [
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Financial Loss',
         description: 'Direct monetary losses due to the risk'
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Reputational Damage',
         description: 'Loss of customer and market trust'
       },
       {
-        id: uuidv4(),
+        id: generateId(),
         name: 'Regulatory Penalties',
         description: 'Fines and sanctions from regulatory bodies'
       }
@@ -195,7 +199,7 @@ export const seedDatabase = async () => {
     }
 
     // Create bow-tie relationship for first risk
-    const bowtieId = uuidv4();
+    const bowtieId = generateId();
     await executeQuery(
       'INSERT INTO bowtie_relationships (id, risk_id) VALUES (?, ?)',
       [bowtieId, risks[0].id]

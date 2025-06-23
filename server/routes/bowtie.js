@@ -1,8 +1,12 @@
 import express from 'express';
 import { executeQuery } from '../database/connection.js';
-import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
+
+const generateId = () => {
+  return Math.random().toString(36).substring(2, 15) + 
+         Math.random().toString(36).substring(2, 15);
+};
 
 // Get all risk factors
 router.get('/factors', async (req, res) => {
@@ -84,7 +88,7 @@ router.get('/relationships', async (req, res) => {
 router.post('/factors', async (req, res) => {
   try {
     const { name, description, riskIds = [] } = req.body;
-    const id = uuidv4();
+    const id = generateId();
 
     await executeQuery(
       'INSERT INTO risk_factors (id, name, description) VALUES (?, ?, ?)',
@@ -111,7 +115,7 @@ router.post('/factors', async (req, res) => {
 router.post('/consequences', async (req, res) => {
   try {
     const { name, description, riskIds = [] } = req.body;
-    const id = uuidv4();
+    const id = generateId();
 
     await executeQuery(
       'INSERT INTO consequences (id, name, description) VALUES (?, ?, ?)',
@@ -138,7 +142,7 @@ router.post('/consequences', async (req, res) => {
 router.post('/relationships', async (req, res) => {
   try {
     const { riskId, factorIds = [], consequenceIds = [] } = req.body;
-    const id = uuidv4();
+    const id = generateId();
 
     await executeQuery(
       'INSERT INTO bowtie_relationships (id, risk_id) VALUES (?, ?)',

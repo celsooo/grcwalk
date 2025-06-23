@@ -1,7 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { testConnection, seedDatabase } from './database/connection.js';
+import { testConnection } from './database/connection.js';
+import { setupDatabase } from './database/setup.js';
+import { seedDatabase } from './database/seedData.js';
 import risksRouter from './routes/risks.js';
 import controlsRouter from './routes/controls.js';
 import bowtieRouter from './routes/bowtie.js';
@@ -40,6 +42,13 @@ const startServer = async () => {
     if (!dbConnected) {
       console.error('❌ Cannot start server without database connection');
       process.exit(1);
+    }
+
+    // Setup database schema
+    try {
+      await setupDatabase();
+    } catch (error) {
+      console.warn('⚠️  Database setup failed (may already exist):', error.message);
     }
 
     // Seed database with initial data
