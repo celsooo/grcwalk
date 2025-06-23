@@ -1,8 +1,12 @@
 import express from 'express';
 import { executeQuery } from '../database/connection.js';
-import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
+
+const generateId = () => {
+  return Math.random().toString(36).substring(2, 15) + 
+         Math.random().toString(36).substring(2, 15);
+};
 
 // Get all controls with their risks
 router.get('/', async (req, res) => {
@@ -58,7 +62,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { name, description, type, status, effectiveness, riskIds = [] } = req.body;
-    const id = uuidv4();
+    const id = generateId();
 
     await executeQuery(
       'INSERT INTO controls (id, name, description, type, status, effectiveness) VALUES (?, ?, ?, ?, ?, ?)',
