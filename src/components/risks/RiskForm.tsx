@@ -111,7 +111,7 @@ const RiskForm: React.FC<RiskFormProps> = ({ risk, onSave, onCancel }) => {
             {/* Name field */}
             <div className="sm:col-span-6">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name
+                Name <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <input
@@ -129,7 +129,7 @@ const RiskForm: React.FC<RiskFormProps> = ({ risk, onSave, onCancel }) => {
             {/* Description field */}
             <div className="sm:col-span-6">
               <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                Description
+                Description <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <textarea
@@ -147,7 +147,7 @@ const RiskForm: React.FC<RiskFormProps> = ({ risk, onSave, onCancel }) => {
             {/* Category field with datalist for suggestions */}
             <div className="sm:col-span-3">
               <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-                Category
+                Category <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <input
@@ -171,7 +171,7 @@ const RiskForm: React.FC<RiskFormProps> = ({ risk, onSave, onCancel }) => {
             {/* Likelihood field */}
             <div className="sm:col-span-1">
               <label htmlFor="likelihood" className="block text-sm font-medium text-gray-700">
-                Likelihood
+                Likelihood <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <select
@@ -193,7 +193,7 @@ const RiskForm: React.FC<RiskFormProps> = ({ risk, onSave, onCancel }) => {
             {/* Impact field */}
             <div className="sm:col-span-1">
               <label htmlFor="impact" className="block text-sm font-medium text-gray-700">
-                Impact
+                Impact <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <select

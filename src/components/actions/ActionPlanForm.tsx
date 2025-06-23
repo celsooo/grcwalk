@@ -81,7 +81,7 @@ const ActionPlanForm: React.FC<ActionPlanFormProps> = ({ onSave, onCancel }) => 
             <div className="grid grid-cols-1 gap-y-6">
               <div>
                 <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                  Title
+                  Title <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -96,7 +96,7 @@ const ActionPlanForm: React.FC<ActionPlanFormProps> = ({ onSave, onCancel }) => 
 
               <div>
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                  Description
+                  Description <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   name="description"
@@ -112,7 +112,7 @@ const ActionPlanForm: React.FC<ActionPlanFormProps> = ({ onSave, onCancel }) => 
               <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                 <div>
                   <label htmlFor="priority" className="block text-sm font-medium text-gray-700">
-                    Priority
+                    Priority <span className="text-red-500">*</span>
                   </label>
                   <select
                     id="priority"
@@ -130,7 +130,7 @@ const ActionPlanForm: React.FC<ActionPlanFormProps> = ({ onSave, onCancel }) => 
 
                 <div>
                   <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                    Status
+                    Status <span className="text-red-500">*</span>
                   </label>
                   <select
                     id="status"
@@ -151,7 +151,7 @@ const ActionPlanForm: React.FC<ActionPlanFormProps> = ({ onSave, onCancel }) => 
               <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                 <div>
                   <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700">
-                    Due Date
+                    Due Date <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="date"
@@ -166,7 +166,7 @@ const ActionPlanForm: React.FC<ActionPlanFormProps> = ({ onSave, onCancel }) => 
 
                 <div>
                   <label htmlFor="assignee" className="block text-sm font-medium text-gray-700">
-                    Assignee
+                    Assignee <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"

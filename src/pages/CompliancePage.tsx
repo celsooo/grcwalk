@@ -231,7 +231,7 @@ const CompliancePage: React.FC = () => {
                 <div className="grid grid-cols-1 gap-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                      Name
+                      Name <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -246,7 +246,7 @@ const CompliancePage: React.FC = () => {
 
                   <div>
                     <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                      Description
+                      Description <span className="text-red-500">*</span>
                     </label>
                     <textarea
                       name="description"
@@ -261,7 +261,7 @@ const CompliancePage: React.FC = () => {
 
                   <div>
                     <label htmlFor="framework" className="block text-sm font-medium text-gray-700">
-                      Framework
+                      Framework <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -276,7 +276,7 @@ const CompliancePage: React.FC = () => {
 
                   <div>
                     <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                      Status
+                      Status <span className="text-red-500">*</span>
                     </label>
                     <select
                       name="status"
@@ -295,7 +295,7 @@ const CompliancePage: React.FC = () => {
 
                   <div>
                     <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700">
-                      Due Date
+                      Due Date <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="date"
@@ -310,7 +310,7 @@ const CompliancePage: React.FC = () => {
 
                   <div>
                     <label htmlFor="assignee" className="block text-sm font-medium text-gray-700">
-                      Assignee
+                      Assignee <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -325,7 +325,7 @@ const CompliancePage: React.FC = () => {
 
                   <div>
                     <label htmlFor="evidence" className="block text-sm font-medium text-gray-700">
-                      Evidence
+                      Evidence <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"

@@ -100,7 +100,7 @@ const ControlForm: React.FC<ControlFormProps> = ({ control, onSave, onCancel }) 
             {/* Name field */}
             <div className="sm:col-span-6">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name
+                Name <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <input
@@ -118,7 +118,7 @@ const ControlForm: React.FC<ControlFormProps> = ({ control, onSave, onCancel }) 
             {/* Description field */}
             <div className="sm:col-span-6">
               <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                Description
+                Description <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <textarea
@@ -136,7 +136,7 @@ const ControlForm: React.FC<ControlFormProps> = ({ control, onSave, onCancel }) 
             {/* Type field */}
             <div className="sm:col-span-3">
               <label htmlFor="type" className="block text-sm font-medium text-gray-700">
-                Type
+                Type <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <select
@@ -157,7 +157,7 @@ const ControlForm: React.FC<ControlFormProps> = ({ control, onSave, onCancel }) 
             {/* Status field */}
             <div className="sm:col-span-3">
               <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                Status
+                Status <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <select
@@ -178,7 +178,7 @@ const ControlForm: React.FC<ControlFormProps> = ({ control, onSave, onCancel }) 
             {/* Effectiveness field */}
             <div className="sm:col-span-6">
               <label htmlFor="effectiveness" className="block text-sm font-medium text-gray-700">
-                Effectiveness (1-5)
+                Effectiveness (1-5) <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <input
